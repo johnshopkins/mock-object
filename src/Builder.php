@@ -1,6 +1,6 @@
 <?php
 
-namespace MockObject;
+namespace MockObjectHelper;
 
 class Builder
 {

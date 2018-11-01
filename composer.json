@@ -5,7 +5,7 @@
   "homepage": "https://github.com/johnshopkins/mock-object",
   "autoload": {
     "psr-4" : {
-      "MockObject\\" : ["src/"]
+      "MockObjectHelper\\" : ["src/"]
     }
   }
 }
