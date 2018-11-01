@@ -1,11 +1,11 @@
 {
-  'name': 'johnshopkins/mock-object',
-  'description': 'A library that helps to create mock objects in PHPUnit',
-  'license': 'MIT',
-  'homepage': 'https://github.com/johnshopkins/mock-object',
-  'autoload': {
-    'psr-4' : {
-      'MockObject\\' : ['src/']
+  "name": "johnshopkins/mock-object",
+  "description": "A library that helps to create mock objects in PHPUnit",
+  "license": "MIT",
+  "homepage": "https://github.com/johnshopkins/mock-object",
+  "autoload": {
+    "psr-4" : {
+      "MockObject\\" : ["src/"]
     }
   }
 }
