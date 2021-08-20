@@ -17,8 +17,8 @@ class MockObject extends \PHPUnit\Framework\TestCase
       ->setMethods(array_keys($methods))
       ->getMock();
 
-    $this->addMethods($methods);
     $this->addProperties($properties);
+    $this->addMethods($methods);
   }
 
   public function addMethods($methods)
