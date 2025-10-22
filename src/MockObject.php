@@ -75,14 +75,6 @@ class MockObject extends TestCase
     return $this->mockBuilder->getMock();
   }
 
-<<<<<<< HEAD
-=======
-  protected function createInterfaceMock($class)
-  {
-    return $this->getMockForAbstractClass($class);
-  }
-
->>>>>>> master
   public function addMethods($methods)
   {
     foreach ($methods as $method => $will) {
