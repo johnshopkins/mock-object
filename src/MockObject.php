@@ -16,24 +16,42 @@ class MockObject extends TestCase
 
   public function __construct($class, $methods = [], $properties = [])
   {
-    $this->mock = !interface_exists($class) ?
-      // class
-      $this->createClassMock($class, $methods) :
-      // interface
-      $this->getMockForAbstractClass($class);
-
+    $this->mock = $this->createClassMock($class, $methods);
     $this->addProperties($properties);
     $this->addMethods($methods);
   }
 
   protected function createClassMock($class, $methods)
   {
-    $this->mockBuilder = $this->getMockBuilder($class);
+    $intClass = 'Mock_' . str_replace('\\', '_', $class) . '_' . uniqid();
+
+    eval("
+      class $intClass extends \\$class {
+        public \$properties = [];
+
+        public function __construct() {
+
+        }
+
+        public function __get(string \$name) {
+          return \$this->properties[\$name] ?? null;
+        }
+
+        public function __set(string \$name, \$value): void {
+          \$this->properties[\$name] = \$value;
+        }
+
+        public function setProperty(string \$name, \$value): void {
+          \$this->properties[\$name] = \$value;
+        }
+      }
+    ");
+
+    $this->mockBuilder = $this->getMockBuilder($intClass);
     $this->mockBuilder->disableOriginalConstructor();
 
     // list of methods on class
     $classMethods = get_class_methods($class);
-    array_shift($classMethods);
 
     $methodsToAdd = array_keys($methods);
 
@@ -50,11 +68,6 @@ class MockObject extends TestCase
     }
 
     return $this->mockBuilder->getMock();
-  }
-
-  protected function createInterfaceMock($class)
-  {
-    return $this->getMockForAbstractClass($class);
   }
 
   public function addMethods($methods)
