@@ -53,6 +53,11 @@ class MockObject extends TestCase
     // list of methods on class
     $classMethods = get_class_methods($class);
 
+    // // remove __construct, if it exists
+    // if (($key = array_search('__construct', $classMethods)) !== false) {
+    //   unset($classMethods[$key]);
+    // }
+
     $methodsToAdd = array_keys($methods);
 
     // list of methods that we're trying to mock that aren't present on the object
@@ -70,6 +75,14 @@ class MockObject extends TestCase
     return $this->mockBuilder->getMock();
   }
 
+<<<<<<< HEAD
+=======
+  protected function createInterfaceMock($class)
+  {
+    return $this->getMockForAbstractClass($class);
+  }
+
+>>>>>>> master
   public function addMethods($methods)
   {
     foreach ($methods as $method => $will) {
