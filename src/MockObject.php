@@ -25,22 +25,20 @@ class MockObject extends TestCase
   {
     $intClass = 'Mock_' . str_replace('\\', '_', $class) . '_' . uniqid();
 
+    $classMethods = get_class_methods($class);
+    $get = !in_array('__get', $classMethods) ? "public function __get(string \$name) {
+        return \$this->properties[\$name] ?? null;
+      }" : '';
+    $set = !in_array('__set', $classMethods) ? "public function __set(string \$name, \$value): void {
+        \$this->properties[\$name] = \$value;
+      }" : '';
+
     eval("
       class $intClass extends \\$class {
         public \$properties = [];
-
-        public function __construct() {
-
-        }
-
-        public function __get(string \$name) {
-          return \$this->properties[\$name] ?? null;
-        }
-
-        public function __set(string \$name, \$value): void {
-          \$this->properties[\$name] = \$value;
-        }
-
+        public function __construct() { }
+        $get
+        $set
         public function setProperty(string \$name, \$value): void {
           \$this->properties[\$name] = \$value;
         }
